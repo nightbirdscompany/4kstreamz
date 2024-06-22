@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayerActivity">
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+
+        show_shuffle_button="true"
+        show_buffering="when_playing"
+        surface_type="surface_view"
+        android:background="#000000"
+        layout_constraintTop_toTopOf="parent"
+        resize_mode="fill"
+        shutter_background_color="#000000"
+      
+        />
+
+
+
+</FrameLayout>

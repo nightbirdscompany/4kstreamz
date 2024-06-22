@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        android:icon="@drawable/search_ic"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        android:iconTintMode="multiply"
+        />
+
+    <item
+        android:id="@+id/download"
+        android:title="Share"
+        android:icon="@drawable/download_ic"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        />
+
+
+    <item
+        android:id="@+id/share"
+        android:title="Share"
+        android:icon="@drawable/share_ic"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        />
+
+
+</menu>

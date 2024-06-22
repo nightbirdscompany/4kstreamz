@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NetworkStreming"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/stream_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:hint="Enter A Stream Url"
+            android:inputType="textUri"
+            android:background="@drawable/layout_border"
+            android:backgroundTint="#787676"
+
+
+            />
+
+        <Button
+            android:id="@+id/gostream"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/stream_url"
+            android:text="Go To Stream"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

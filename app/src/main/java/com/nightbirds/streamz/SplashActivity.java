@@ -1,6 +1,9 @@
 package com.nightbirds.streamz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -33,9 +36,20 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
+
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+             if (networkInfo!= null && networkInfo.isConnected()) {
+                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                 startActivity(i);
+                 finish();
+             } else {
+                 Intent i = new Intent(SplashActivity.this, NoInternet.class);
+                 startActivity(i);
+                 finish();
+             }
+
             }
         },splash_screen);
 
