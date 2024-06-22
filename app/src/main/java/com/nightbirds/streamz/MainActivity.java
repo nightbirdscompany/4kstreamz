@@ -15,11 +15,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navview;
     View headerview;
     TextView headername, headeremail;
+
+
+
     //  MeowBottomNavigation meownav;
 
     @SuppressLint("MissingInflatedId")
@@ -54,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         headerview = navview.getHeaderView(0);
         headername = headerview.findViewById(R.id.headertext);
         headeremail = headerview.findViewById(R.id.headeremail);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.framlay, new HomeFragment());
+        fragmentTransaction.commit();
+
+
 
         //  meownav = findViewById(R.id.meownav);
 
@@ -86,6 +99,27 @@ public class MainActivity extends AppCompatActivity {
 
         drawlay.addDrawerListener(toggle);
 
+
+        //=========== Toolbar Start
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if (item.getItemId()==R.id.search){
+
+                }
+                else if (item.getItemId()==R.id.download){
+
+                }
+                else if (item.getItemId()==R.id.share){
+
+                }
+
+                return false;
+            }
+        }); //=========== Toolbar End
+
         //================================ drawer navigation start
         navview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -103,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else   if (menuItem.getItemId()==R.id.nav_noti){
-                    Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
+                    startActivity(intent);
                     drawlay.closeDrawer(GravityCompat.START);
                 }
 
@@ -158,15 +193,24 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 if (menuItem.getItemId()==R.id.bottom_nav_home){
-                    Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_LONG).show();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.framlay, new HomeFragment());
+                    fragmentTransaction.commit();
                 }
 
                 else  if (menuItem.getItemId()==R.id.bottom_nav_tv){
-                    Toast.makeText(getApplicationContext(), "TV", Toast.LENGTH_LONG).show();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.framlay, new TvFragment());
+                    fragmentTransaction.commit();
                 }
 
                 else  if (menuItem.getItemId()==R.id.bottom_nav_movie){
-                    Toast.makeText(getApplicationContext(), "MOVIE", Toast.LENGTH_LONG).show();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.framlay, new MovieFragment());
+                    fragmentTransaction.commit();
                 }
 
                 return true;
