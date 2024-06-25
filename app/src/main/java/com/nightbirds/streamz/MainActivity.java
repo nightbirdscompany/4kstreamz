@@ -108,8 +108,14 @@ public class MainActivity extends AppCompatActivity {
 
                 if (item.getItemId()==R.id.search){
 
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+
                 }
                 else if (item.getItemId()==R.id.download){
+
+                    Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                    startActivity(intent);
 
                 }
                 else if (item.getItemId()==R.id.share){

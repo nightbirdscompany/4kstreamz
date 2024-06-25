@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MovieFragment"
-    android:background="@color/white">
+    android:background="#373636"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movieView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MOVIE FRAGMENT"
-        android:textSize="50sp" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        />
+
+
+
+</LinearLayout>
