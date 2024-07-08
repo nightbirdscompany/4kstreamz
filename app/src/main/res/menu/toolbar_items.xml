@@ -8,7 +8,7 @@
         android:icon="@drawable/search_ic"
         app:showAsAction="ifRoom"
         android:iconTint="@color/white"
-        android:iconTintMode="multiply"
+
         />
 
     <item

@@ -7,62 +7,34 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="171dp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bangladesh :"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="20sp"
-        android:layout_marginLeft="10sp"
+        android:layout_gravity="center">
 
-        />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Bangladeshi"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_toEndOf="@+id/textView2"
             android:text="SEE ALL"
-            android:textStyle="bold"
-            android:textSize="20sp"
             android:textColor="@color/black"
-            android:layout_marginTop="20sp"
-
-
-            />
-</LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="India :"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="150sp"
-        android:layout_marginLeft="10sp"
-
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sports :"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="150sp"
-        android:layout_marginLeft="10sp"
-        />
-
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

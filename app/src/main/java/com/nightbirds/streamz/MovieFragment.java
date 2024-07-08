@@ -46,7 +46,7 @@ public class MovieFragment extends Fragment {
 
         //====================== find view id end
 
-        String serverUrl = "http://livetv.free.nf/movie.json";
+        String serverUrl = "http://livetv.free.nf/movie.json?i=1";
 
         JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET, serverUrl, null, new Response.Listener<JSONArray>() {
             @Override
