@@ -14,7 +14,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 public class PlayerActivity extends AppCompatActivity {
-    public static String video_url = "";
+    public static String videoUrl;
 
     StyledPlayerView player;
     ExoPlayer eplayer;
@@ -30,6 +30,8 @@ public class PlayerActivity extends AppCompatActivity {
         });   //================== view compat end
 
         player = findViewById(R.id.player);
+
+        videoUrl = getIntent().getStringExtra("video_url");
 
 
     } //================ on create end

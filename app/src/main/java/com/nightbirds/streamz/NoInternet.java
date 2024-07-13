@@ -41,6 +41,7 @@ public class NoInternet extends AppCompatActivity {
                 if (checkInternet()){
                     Intent i = new Intent(NoInternet.this, MainActivity.class);
                     startActivity(i);
+                    finish();
 
                     showToast("Internet Connected");
                 }else {

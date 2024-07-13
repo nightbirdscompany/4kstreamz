@@ -20,7 +20,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="50dp"
                 android:background="#05A4FA"
                 app:menu="@menu/toolbar_items"
                 app:navigationIcon="@drawable/menuic"
@@ -50,7 +50,8 @@
          <com.google.android.material.bottomnavigation.BottomNavigationView
              android:id="@+id/bottomnavigationview"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+             android:layout_height="60dp"
+             android:background="@color/light_blue_600"
              app:menu="@menu/bottom_nav_items"
              android:layout_alignParentBottom="true"
              />

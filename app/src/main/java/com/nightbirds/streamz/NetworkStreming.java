@@ -32,7 +32,7 @@ public class NetworkStreming extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String user_url = streamurl.getText().toString();
-                PlayerActivity.video_url = (user_url);
+                PlayerActivity.videoUrl = (user_url);
 
                 if ( user_url.length() >10 ) {
 

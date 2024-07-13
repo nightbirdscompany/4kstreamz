@@ -15,13 +15,14 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:id="@+id/bpl"
+            android:id="@+id/channellogo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="1dp"
             android:src="@drawable/iconai" />
 
         <TextView
+            android:id="@+id/channeltitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="icc t20"

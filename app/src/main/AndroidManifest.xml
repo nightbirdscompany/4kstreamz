@@ -17,6 +17,15 @@
         android:theme="@style/Theme._4KSTREAMZ"
         tools:targetApi="31">
         <activity
+            android:name=".SportsTv"
+            android:exported="false" />
+        <activity
+            android:name=".IndianTv"
+            android:exported="false" />
+        <activity
+            android:name=".BangladeshiTv"
+            android:exported="false" />
+        <activity
             android:name=".DownloadActivity"
             android:exported="false" />
         <activity
