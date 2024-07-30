@@ -69,6 +69,8 @@ public class NoInternet extends AppCompatActivity {
             return true;
 
         }else  {
+
+            showToast("Please Check Your Internet Connection");
             return false;
         }
 

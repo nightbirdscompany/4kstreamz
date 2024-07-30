@@ -2,25 +2,32 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayerActivity">
-    <com.google.android.exoplayer2.ui.StyledPlayerView
-        android:id="@+id/player"
-        android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:id="@+id/fram"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        show_shuffle_button="true"
-        show_buffering="when_playing"
-        surface_type="surface_view"
-        android:background="#000000"
-        layout_constraintTop_toTopOf="parent"
-        resize_mode="fill"
-        shutter_background_color="#000000"
-      
-        />
 
+        <com.google.android.exoplayer2.ui.StyledPlayerView
+            android:id="@+id/exoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resize_mode="fill"
+            android:animateLayoutChanges="true"
+            app:surface_type="texture_view"
+            app:show_buffering="when_playing">
+
+        </com.google.android.exoplayer2.ui.StyledPlayerView>
+
+    </FrameLayout>
 
 
 </FrameLayout>

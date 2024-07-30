@@ -7,6 +7,7 @@
     tools:context=".MainActivity"
     tools:openDrawer="start"
     android:id="@+id/drawlay"
+    android:background="@color/black"
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -31,30 +32,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             >
-
 
 
             <FrameLayout
                 android:id="@+id/framlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/bottomnavigationview"
-                />
+                android:layout_above="@id/bottomnavigationview" />
 
 
             <!-- for meow naav  -->
 
-         <com.google.android.material.bottomnavigation.BottomNavigationView
-             android:id="@+id/bottomnavigationview"
-             android:layout_width="match_parent"
-             android:layout_height="60dp"
-             android:background="@color/light_blue_600"
-             app:menu="@menu/bottom_nav_items"
-             android:layout_alignParentBottom="true"
-             />
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomnavigationview"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/light_blue_600"
+                app:menu="@menu/bottom_nav_items" />
 
 
         </RelativeLayout>

@@ -65,6 +65,51 @@ public class DownloadActivity extends AppCompatActivity {
         hashMap.put("actor", "Jet | Jani Na");
         arrayList.add(hashMap);
 
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Bandia");
+        hashMap.put("actor", "Seikh Hasina | Modi");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Hitman");
+        hashMap.put("actor", "Sakib Khan | Apo Biswas");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Power");
+        hashMap.put("actor", "Jet | Jani Na");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Bandia");
+        hashMap.put("actor", "Seikh Hasina | Modi");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Hitman");
+        hashMap.put("actor", "Sakib Khan | Apo Biswas");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Power");
+        hashMap.put("actor", "Jet | Jani Na");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Bandia");
+        hashMap.put("actor", "Seikh Hasina | Modi");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Hitman");
+        hashMap.put("actor", "Sakib Khan | Apo Biswas");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "Power");
+        hashMap.put("actor", "Jet | Jani Na");
+        arrayList.add(hashMap);
+
 
 
 

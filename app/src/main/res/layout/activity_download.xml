@@ -9,63 +9,6 @@
     android:orientation="vertical"
     android:background="@color/black">
 
-  <!--  <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:orientation="horizontal"
-        android:background="@drawable/search_viewbg"
-        android:layout_margin="10dp"
-        android:padding="8dp">
-
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/movieposter"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/srcmovietitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Spider Man No Way Home and modi seikh hasina realation "
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Petar Parker | Seikh Hasina"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                />
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-    -->
 
     <ListView
       android:id="@+id/downlist"
