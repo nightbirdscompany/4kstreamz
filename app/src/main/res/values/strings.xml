@@ -2,9 +2,7 @@
     <string name="app_name">4K STREAMZ</string>
     <string name="drawer_close">Close Drawer</string>
     <string name="drawer_open">Open Drawer</string>
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">SettingsActivity</string>
@@ -24,6 +22,12 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
+
+    <string name="select_quality">Select Quality</string>
+    <string name="track_selection_title">Select tracks</string>
+    <string name="exo_track_selection_title_audio">audio</string>
+    <string name="exo_track_selection_title_text">txt</string>
+    <string name="exo_track_selection_title_video">vid</string>
 
 
 </resources>

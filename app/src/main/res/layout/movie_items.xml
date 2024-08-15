@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/event1"
+        android:id="@+id/movieLayout"
         android:layout_width="205dp"
         android:layout_height="330dp"
         android:layout_margin="5dp"
@@ -30,6 +30,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            android:textSize="20dp"
             android:text="icc t20"
             android:textColor="#ffffffff"
             android:textStyle="bold" />

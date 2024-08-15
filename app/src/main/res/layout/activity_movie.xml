@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieActivity"
+    android:background="@color/black"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/black"
+        >
+
+        <ImageView
+            android:id="@+id/moviePos"
+            android:layout_width="300dp"
+            android:layout_height="460dp"
+            android:src="@drawable/movieposter"
+            android:layout_gravity="center"
+            android:background="@drawable/tv_home_border"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toofan"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:layout_marginTop="10dp"
+            >
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/movieWatch"
+                android:text="Watch Now"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_blue_600"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/movieDown"
+                android:text="DownLoad Now"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_blue_600"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/movieDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="huduh hfduif jdhfidsjhf uifhdjsi ihdf sfiuhf siuhiuhfi iudhf idsh d hdiuuhfiudhfudhudh du dufh difu duf dsuf duhf df fud uif df "
+            />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

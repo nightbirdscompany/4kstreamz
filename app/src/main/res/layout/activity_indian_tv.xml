@@ -18,9 +18,14 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Indian All Channel" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/indiaallrecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="4dp"
+        android:background="@android:color/white"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+        android:backgroundTint="@color/black"/>
 </LinearLayout>

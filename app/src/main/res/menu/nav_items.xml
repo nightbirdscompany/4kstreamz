@@ -38,6 +38,13 @@
 
         />
 
+    <item
+            android:id="@+id/tele_channel"
+            android:title="Telegram Channel"
+            android:icon="@drawable/telegram_ic"
+            />
+
+
     </group>
 
     <group

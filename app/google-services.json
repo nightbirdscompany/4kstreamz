@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "790778531954",
+    "project_id": "k-streamz-5647e",
+    "storage_bucket": "k-streamz-5647e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790778531954:android:eae04d668158794991b2eb",
+        "android_client_info": {
+          "package_name": "com.nightbirds.streamz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLCe_nvMHGd0TGz5ARezlSBN6nzksJ7dk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

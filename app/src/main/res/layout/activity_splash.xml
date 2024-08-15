@@ -20,13 +20,13 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="222dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/imageView2"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="-2dp"
         android:layout_marginBottom="101dp"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/white"
+        />
 
 </RelativeLayout>
