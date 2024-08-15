@@ -147,8 +147,8 @@ public class DownloadActivity extends AppCompatActivity {
             TextView srcmovietitle, srcmovieactor;
 
             searchItem = downView.findViewById(R.id.searchItem);
-            srcmovietitle = downView.findViewById(R.id.srcmovietitle);
-            srcmovieactor = downView.findViewById(R.id.srcmovieactor);
+            srcmovietitle = downView.findViewById(R.id.movieName);
+            srcmovieactor = downView.findViewById(R.id.movieActor);
 
 
             HashMap<String, String> hashMap = arrayList.get(position);

@@ -13,6 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
+
 public class NetworkStreming extends AppCompatActivity {
 
     EditText streamurl;
@@ -26,6 +29,9 @@ public class NetworkStreming extends AppCompatActivity {
         streamurl = findViewById(R.id.stream_url);
         gostream = findViewById(R.id.gostream);
 
+
+
+        StartAppAd.disableSplash();
 
 
         gostream.setOnClickListener(new View.OnClickListener() {

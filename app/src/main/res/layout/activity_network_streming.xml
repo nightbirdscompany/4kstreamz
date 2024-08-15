@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="100dp">
         <EditText
             android:id="@+id/stream_url"
             android:layout_width="wrap_content"
@@ -35,5 +36,16 @@
             android:textStyle="bold"
             />
 
+
+
     </LinearLayout>
+
+    <com.startapp.sdk.ads.banner.Banner
+        android:id="@+id/startAppBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"/>
+
+
 </RelativeLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     >
 
@@ -32,7 +32,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/srcmovietitle"
+                android:id="@+id/movieName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Spider Man No Way Home and modi seikh hasina realation "
@@ -47,7 +47,7 @@
                 />
 
             <TextView
-                android:id="@+id/srcmovieactor"
+                android:id="@+id/movieActor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Petar Parker | Seikh Hasina"

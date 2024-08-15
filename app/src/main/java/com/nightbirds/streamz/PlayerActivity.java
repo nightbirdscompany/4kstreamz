@@ -99,6 +99,11 @@ public class PlayerActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        eplayer.pause();
+    }
 
     @Override
     protected void onResume() {

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,10 +26,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navview;
     View headerview;
     TextView headername, headeremail;
+
+    FirebaseRemoteConfig remoteConfig;
 
 
 
@@ -61,37 +69,18 @@ public class MainActivity extends AppCompatActivity {
         headername = headerview.findViewById(R.id.headertext);
         headeremail = headerview.findViewById(R.id.headeremail);
 
+
+
+
+
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.framlay, new HomeFragment());
         fragmentTransaction.commit();
 
 
-
-        //  meownav = findViewById(R.id.meownav);
-
-        //================== find view by id end
-
-
-        //================================ meow bottom navigation start
-
-        //  replace( new MainhomeFragment());
-
-//        meownav.show(2, true);
-
-        //       meownav.add(new MeowBottomNavigation.Model(1, R.drawable.ic_tv));
-//        meownav.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home));
-        //       meownav.add(new MeowBottomNavigation.Model(1, R.drawable.ic_movie));
-
-        //     meownavigation();
-        //================================ meow bottom navigation end
-
-
-
-        //   FragmentManager fmanager = getSupportFragmentManager();
-        //    FragmentTransaction fragmentTransaction =fmanager.beginTransaction();
-        //   fragmentTransaction.add(R.id.framlay, new MainhomeFragment());
-        //    fragmentTransaction.commit();
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (item.getItemId()==R.id.share){
 
+                    Intent intent = new Intent( Intent.ACTION_SEND);
+                    intent.setType("Text/Plain");
+                    String shareLink = "http://4kstreamz.free.nf/";
+                    String shareSubject = "Enjoy Live Tv And Movie App";
+
+
+                    intent.putExtra(Intent.EXTRA_TEXT,shareLink);
+                    intent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
+                    startActivity(Intent.createChooser( intent,"Enjoy Live Tv And Movie App"));
+
+
                 }
 
                 return false;
@@ -143,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else   if (menuItem.getItemId()==R.id.nav_noti){
-                    Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
-                    startActivity(intent);
+
                     drawlay.closeDrawer(GravityCompat.START);
                 }
 
@@ -161,6 +160,11 @@ public class MainActivity extends AppCompatActivity {
                 else   if (menuItem.getItemId()==R.id.settings){
                     Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
                     drawlay.closeDrawer(GravityCompat.START);
+                }
+
+                else if (menuItem.getItemId()==R.id.help) {
+                    Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+                    startActivity(intent);
                 }
 
                 else   if (menuItem.getItemId()==R.id.exit){
@@ -226,13 +230,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     //========= ON creat end
 
-    //================================ meow bottom navigation start
-
-
-    //================================ meow bottom navigation end
-
+    
     //================================ fragment start
 
 

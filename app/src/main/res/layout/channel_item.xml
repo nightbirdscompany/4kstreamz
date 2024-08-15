@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-
-
     <LinearLayout
         android:id="@+id/event1"
         android:layout_width="wrap_content"
@@ -12,17 +10,15 @@
         android:layout_margin="5dp"
         android:background="@drawable/layout_border"
         android:gravity="center_vertical|center|center_horizontal"
-        android:orientation="vertical" >
-
+        android:orientation="vertical">
         <ImageView
-            android:id="@+id/channellogo"
+            android:id="@+id/cLogo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="1dp"
-            android:src="@drawable/iconai" />
-
+            android:src="@drawable/iconai"/>
         <TextView
-            android:id="@+id/channeltitle"
+            android:id="@+id/cName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="icc t20"
@@ -35,7 +31,4 @@
             android:focusable="true"
             android:focusableInTouchMode="true"/>
     </LinearLayout>
-
-
-
 </LinearLayout>
