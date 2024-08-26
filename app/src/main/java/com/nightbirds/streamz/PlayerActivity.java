@@ -243,6 +243,11 @@ public class PlayerActivity extends AppCompatActivity {
 
     }// ============ on create end
 
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        eplayer.pause();
+    }
 
     @Override
     protected void onResume(){
