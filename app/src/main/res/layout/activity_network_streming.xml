@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NetworkStreming"
+    android:background="@color/black"
     >
 
     <LinearLayout
@@ -33,6 +34,8 @@
             android:layout_below="@+id/stream_url"
             android:text="Go To Stream"
             android:textStyle="bold"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             />
 
     </LinearLayout>

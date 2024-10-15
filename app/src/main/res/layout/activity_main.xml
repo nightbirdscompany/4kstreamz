@@ -22,7 +22,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="#05A4FA"
+                android:background="@color/black"
                 app:menu="@menu/toolbar_items"
                 app:navigationIcon="@drawable/menuic"
                 app:navigationIconTint="@color/white"
@@ -51,7 +51,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/light_blue_600"
+                android:background="@color/black"
+                app:itemIconTint="@color/bottom_nav_color"
+                app:itemRippleColor="@color/bottom_nav_ripple_color"
+                app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_nav_items" />
 
 

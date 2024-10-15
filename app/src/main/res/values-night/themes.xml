@@ -2,10 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme._4KSTREAMZ" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="android:statusBarColor" tools:targetApi="l">#0791DC</item>
-
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="colorPrimary">@color/black</item>
     </style>
 
     <style name="ThemeOverlay._4KSTREAMZ.FullscreenContainer" parent="">

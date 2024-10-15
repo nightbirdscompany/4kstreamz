@@ -32,7 +32,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/movieName"
+                android:id="@+id/movieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Spider Man No Way Home and modi seikh hasina realation "
@@ -47,17 +47,30 @@
                 />
 
             <TextView
-                android:id="@+id/movieActor"
+                android:id="@+id/movieYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Petar Parker | Seikh Hasina"
+                android:text="2024"
                 android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
                 android:gravity="center"
-                android:singleLine="true"
+
+                />
+
+            <TextView
+                android:id="@+id/movieStory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Movie Story"
+                android:textSize="14sp"
                 android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
-                />
+                android:singleLine="true"/>
 
         </LinearLayout>
 

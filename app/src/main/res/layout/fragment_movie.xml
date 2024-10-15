@@ -1,19 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MovieFragment"
     android:background="@color/black"
     android:orientation="vertical"
-    android:gravity="center"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ALL"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/awesome_button"
+            android:elevation="2dp"
+            android:layout_margin="3dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOLLYWOOD"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/awesome_button"
+            android:elevation="2dp"
+            android:layout_margin="3dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BOLLYWOOD"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/awesome_button"
+            android:elevation="2dp"
+            android:layout_margin="3dp"/>
+
+    </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movieView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        />
+
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Something Wrong Please Try Again"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
         />
 
     <ProgressBar
@@ -23,6 +88,8 @@
         android:layout_centerInParent="true"
         />
 
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+</LinearLayout>

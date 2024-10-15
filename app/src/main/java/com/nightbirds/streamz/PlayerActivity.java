@@ -246,7 +246,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        eplayer.pause();
+        exoPlayer.pause();
     }
 
     @Override

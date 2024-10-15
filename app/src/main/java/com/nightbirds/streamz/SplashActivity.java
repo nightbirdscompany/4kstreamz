@@ -19,9 +19,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.nightbirds.streamz.Ads.InterstitialAds;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static int splash_screen = 3000;
+
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // Show the App Open Ad if available
+//        ((MyApplication) getApplication()).showAppOpenAdIfAvailable();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,8 @@ public class SplashActivity extends AppCompatActivity {
                     NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
                     if (networkInfo!= null && networkInfo.isConnected()) {
+
+
                         Intent i = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();

@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,7 @@ public class HomeFragment extends Fragment {
     List<Event>events, events1, events2;
     private static String eventJson = "https://nightbirdscompany.github.io/4kstreamzdata/app/json/event.json";
     private static String eventJson1 = "https://nightbirdscompany.github.io/4kstreamzdata/app/json/football.json";
-    private static String eventJson2 = "https://nightbirdscompany.github.io/4kstreamzdata/app/json/cricket.json";
+    private static String eventJson2 = "https://nightbirdscompany.github.io/4kstreamzdata/app/json/others.json";
 
     EventAdepter eventAdepter;
 
@@ -44,6 +46,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View myView = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        AdView adView = myView.findViewById(R.id.adView);
+
+        // Create an AdRequest and load the banner
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
 
 
         eventProg = myView.findViewById(R.id.eventProg);

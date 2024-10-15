@@ -1,13 +1,38 @@
 package com.nightbirds.streamz;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.nightbirds.streamz.Ads.InterstitialAds;
+import com.nightbirds.streamz.Download.Data;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,16 +42,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    LayoutInflater inflater;
-    List<Movie> movies;
+    private Context context;
+    private List<Movie> movies;
+    private Activity activity;
 
-    public MovieAdapter(Context ctx, List<Movie>movies) {
 
-        this.inflater = LayoutInflater.from(ctx);
+    public MovieAdapter(Context context, List<Movie> movies, Activity activity) {
+        this.context = context;
         this.movies = movies;
+        this.activity = activity;
+
     }
+
+
 
     public void setFilteredList(List<Movie> filteredList){
         this.movies = filteredList;
@@ -35,56 +65,160 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = inflater.inflate(R.layout.search_item, parent, false);
-
-
-        return new ViewHolder(view);
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.search_item, parent, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+        Movie movie = movies.get(position);
+        holder.movieTitle.setText(movie.getTitle());
+        holder.movieYear.setText(movie.getYear());
+        holder.movieStory.setText(movie.getStory());
+        holder.movieStory.setSelected(true);
+        holder.movieTitle.setSelected(true);
 
-        holder.movieName.setSelected(true);
-        holder.movieActor.setSelected(true);
-        holder.movieName.setText(movies.get(position).getMovie_title());
-        holder.movieActor.setText(movies.get(position).getMovie_actor());
-        Picasso.get().load(movies.get(position).getMovie_poster()).placeholder(R.drawable.iconai).into(holder.moviePoster);
-        holder.searchItem.setOnClickListener(new View.OnClickListener() {
+
+        // Load the poster using Picasso
+        Picasso.get()
+                .load(movie.getPosterUrl())
+                .placeholder(R.drawable.event) // A placeholder image
+                .into(holder.poster);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                PlayerActivity.videoUrl = (movies.get(position).getMovie_url());
 
-                PlayerActivity.playerTitle = (movies.get(position).getMovie_title());
 
-                Intent intent = new Intent(v.getContext(), PlayerActivity.class);
-                v.getContext().startActivity(intent);
+                MovieViewHolder.dialogTitle = movie.getTitle();
+                MovieViewHolder.dialogDes = movie.getStory();
+                showOptionsDialog(movie);
+
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    
 
-        TextView movieName, movieActor;
-        ImageView moviePoster;
-        LinearLayout searchItem;
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+        TextView movieTitle, movieYear, movieStory;
+        ImageView poster;
 
-        public ViewHolder(@NonNull View itemView) {
+       public static String dialogTitle, dialogDes;
+
+        public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            movieName = itemView.findViewById(R.id.movieName);
-            moviePoster = itemView.findViewById(R.id.moviePoster);
-            movieActor = itemView.findViewById(R.id.movieActor);
-            searchItem = itemView.findViewById(R.id.searchItem);
+            movieTitle = itemView.findViewById(R.id.movieTitle);
+            movieYear = itemView.findViewById(R.id.movieYear);
+            movieStory = itemView.findViewById(R.id.movieStory);
+            poster = itemView.findViewById(R.id.moviePoster);
         }
     }
+
+
+    private void showOptionsDialog(Movie movie) {
+
+        TextView customTitle = new TextView(context);
+        customTitle.setText(MovieViewHolder.dialogTitle);
+        customTitle.setTextSize(20);  // Set title size
+        customTitle.setPadding(20, 20, 20, 5);  // Set padding
+        customTitle.setTextColor(context.getResources().getColor(R.color.white));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCustomTitle(customTitle)
+                .setMessage(MovieViewHolder.dialogDes)
+                .setPositiveButton("Play", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    // Open PlayerActivity
+                    PlayerActivity.videoUrl = movie.getMovieUrl();
+                    PlayerActivity.playerTitle = movie.getTitle();
+                    Intent intent = new Intent(context, PlayerActivity.class);
+                    context.startActivity(intent);
+
+                }
+                })
+                .setNegativeButton("Download", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Start downloading the file
+
+                        if (InterstitialAds.mInterstitialAd != null) {
+
+                            InterstitialAds.mInterstitialAd.show(activity);
+                            InterstitialAds.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    super.onAdDismissedFullScreenContent();
+
+                                    // Reset ad and reload a new one
+                                    InterstitialAds.mInterstitialAd = null;
+                                    InterstitialAds.loadAds(activity);
+
+                                    // Proceed with the download process after ad is dismissed
+                                    Data.sampleUrls = new String[]{movie.getMovieUrl()};
+                                    Intent intent = new Intent(context, DownloadActivity.class);
+                                    context.startActivity(intent);
+                                }
+
+                                @Override
+                                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                    super.onAdFailedToShowFullScreenContent(adError);
+
+                                    // Log ad error
+                                    Log.e("AdError", "Interstitial ad failed to show: " + adError.getMessage());
+
+                                    // Reset ad and reload a new one
+                                    InterstitialAds.mInterstitialAd = null;
+                                    InterstitialAds.loadAds(activity);
+
+                                    // Proceed with the download process even if ad fails to show
+                                    Data.sampleUrls = new String[]{movie.getMovieUrl()};
+                                    Intent intent = new Intent(context, DownloadActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            });
+
+                        } else {
+                            // Ad is not loaded, proceed with the download directly
+                            Data.sampleUrls = new String[]{movie.getMovieUrl()};
+                            Intent intent = new Intent(context, DownloadActivity.class);
+                            context.startActivity(intent);
+
+                            // Reload the interstitial ad for future use
+                            InterstitialAds.loadAds(activity);
+                        }
+                    }
+                })
+
+                .setNeutralButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.white));
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.white));
+                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.white));
+                dialog.getWindow().setBackgroundDrawableResource(R.color.black);
+
+
+
+                // Change the message color
+                TextView messageView = dialog.findViewById(android.R.id.message);
+                if (messageView != null) {
+                    messageView.setTextColor(context.getResources().getColor(R.color.white)); // Replace with your message color resource
+                }
+            }
+        });
+
+        dialog.show();
+    }
 }
+

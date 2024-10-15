@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -30,6 +32,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -89,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +117,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+        new Thread(
+                () -> {
+                    // Initialize the Google Mobile Ads SDK on a background thread.
+                    MobileAds.initialize(this, initializationStatus -> {});
+                })
+                .start();
 
 
 
@@ -187,16 +200,22 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else   if (menuItem.getItemId()==R.id.fb_page){
-                    Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
+                   openFacebookPage("https://www.facebook.com/nightbirdscompany/");
                     drawlay.closeDrawer(GravityCompat.START);
+                    return true;
                 }
 
                 else   if (menuItem.getItemId()==R.id.yt_channel){
-                    Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
+                    openYouTubeChannel("https://www.youtube.com/@nightbirdsofficial");
                     drawlay.closeDrawer(GravityCompat.START);
-                }
+                    return true;
+                } else if (menuItem.getItemId()==R.id.tele_channel) {
 
-                else   if (menuItem.getItemId()==R.id.settings){
+                    openTelegramChannel("https://t.me/c4kstreamz");
+                    drawlay.closeDrawer(GravityCompat.START);
+                    return true;
+
+                } else   if (menuItem.getItemId()==R.id.settings){
                     Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
                     drawlay.closeDrawer(GravityCompat.START);
                 }
@@ -244,27 +263,34 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId()==R.id.bottom_nav_home){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.framlay, new HomeFragment());
+                    fragmentTransaction.replace(R.id.framlay, new HomeFragment());
                     fragmentTransaction.commit();
                 }
 
                 else  if (menuItem.getItemId()==R.id.bottom_nav_tv){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.framlay, new TvFragment());
+                    fragmentTransaction.replace(R.id.framlay, new TvFragment());
                     fragmentTransaction.commit();
                 }
 
                 else  if (menuItem.getItemId()==R.id.bottom_nav_movie){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.framlay, new MovieFragment());
+                    fragmentTransaction.replace(R.id.framlay, new MovieFragment());
                     fragmentTransaction.commit();
                 }
 
                 return true;
             }
         });
+
+        ColorStateList colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_color);
+
+        bottomnavigationview.setItemIconTintList(colorStateList);
+
+        ColorStateList rippleColor = ContextCompat.getColorStateList(this, R.color.bottom_nav_ripple_color);
+        bottomnavigationview.setItemRippleColor(rippleColor);
 
 
         //======= for update noti
@@ -275,7 +301,45 @@ public class MainActivity extends AppCompatActivity {
        // ========== for proxy detected
 
         handler.post(checkProxyRunnable);
+    }// ============== on create end
+
+    //============== for intent telegram
+
+    private void openTelegramChannel(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage("org.telegram.messenger");
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            // Telegram app not installed, open in browser
+            intent.setPackage(null);
+            startActivity(intent);
+        }
     }
+
+    private void openYouTubeChannel(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage("com.google.android.youtube");
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            // YouTube app not installed, open in browser
+            intent.setPackage(null);
+            startActivity(intent);
+        }
+    }
+
+    private void openFacebookPage(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage("com.facebook.katana");
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            // Facebook app not installed, open in browser
+            intent.setPackage(null);
+            startActivity(intent);
+        }
+    }// =======for intent telegram end
 
     @Override
     protected void onDestroy() {
@@ -384,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
                     int latestVersionCode = jsonObject.getInt("versionCode");
                     String apkUrl = jsonObject.getString("apkUrl");
 
-                    if (latestVersionCode > 1) {
+                    if (latestVersionCode > 4) {
                         runOnUiThread(() -> showUpdateDialog(apkUrl));
                     }
                 } catch (JSONException e) {

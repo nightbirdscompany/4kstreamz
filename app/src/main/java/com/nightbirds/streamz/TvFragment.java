@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +43,8 @@ public class TvFragment extends Fragment {
 
     TextView bangladeshall, indiaall, sportsall;
 
+    ProgressBar tvProg;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View tvView = inflater.inflate(R.layout.fragment_tv, container, false);
@@ -47,9 +52,19 @@ public class TvFragment extends Fragment {
 
         //======== for see all button
 
+
+        AdView adView = tvView.findViewById(R.id.adView2);
+
+        // Create an AdRequest and load the banner
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+
+
         bangladeshall = tvView.findViewById(R.id.bangladeshall);
         indiaall = tvView.findViewById(R.id.indiaall);
         sportsall = tvView.findViewById(R.id.sportsall);
+        tvProg = tvView.findViewById(R.id.tvProg);
 
         bangladeshall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +128,7 @@ public class TvFragment extends Fragment {
                         banglaChannel.setChannel_url(sportsObject.getString("channel_url"));
 
                         banglaChannels3.add(banglaChannel);
+                        tvProg.setVisibility(View.GONE);
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -150,6 +166,7 @@ public class TvFragment extends Fragment {
                         banglaChannel.setChannel_url(indiaObject.getString("channel_url"));
 
                         banglaChannels2.add(banglaChannel);
+                        tvProg.setVisibility(View.GONE);
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -188,6 +205,7 @@ public class TvFragment extends Fragment {
                         banglaChannel.setChannel_url(banglaObject.getString("channel_url"));
 
                         banglaChannels.add(banglaChannel);
+                        tvProg.setVisibility(View.GONE);
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
