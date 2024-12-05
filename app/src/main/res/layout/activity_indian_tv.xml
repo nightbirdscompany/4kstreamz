@@ -13,8 +13,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_blue_600"
+        android:background="@color/black"
         app:title="Indian Channel"
+        app:titleTextColor="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 

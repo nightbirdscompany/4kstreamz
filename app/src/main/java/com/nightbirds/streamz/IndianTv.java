@@ -42,10 +42,15 @@ public class IndianTv extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indian_tv);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+        }
+
        Toolbar toolbar = findViewById(R.id.toolbar);
 
      setSupportActionBar(toolbar);
      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+     toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
 
      recyclerView = findViewById(R.id.indiaallrecycler);
 

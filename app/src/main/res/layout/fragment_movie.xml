@@ -16,39 +16,87 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true">
+            android:layout_height="37dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ALL"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/awesome_button"
-            android:elevation="2dp"
-            android:layout_margin="3dp"/>
+<!--        <Button-->
+<!--            android:id="@+id/allBut"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="ALL"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:background="@drawable/awesome_button"-->
+<!--            android:elevation="2dp"-->
+<!--            android:layout_marginLeft="3dp"-->
+<!--            />-->
 
         <Button
+            android:id="@+id/hollywoodBut"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:text="HOLLYWOOD"
             android:textColor="#FFFFFF"
             android:background="@drawable/awesome_button"
             android:elevation="2dp"
-            android:layout_margin="3dp"/>
+            android:layout_marginLeft="3dp"/>
 
         <Button
+            android:id="@+id/bollywoodBut"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:text="BOLLYWOOD"
             android:textColor="#FFFFFF"
             android:background="@drawable/awesome_button"
             android:elevation="2dp"
-            android:layout_margin="3dp"/>
+            android:layout_marginLeft="3dp"/>
+                <Button
+                    android:id="@+id/hindidubbingBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="HINDI DUBBING"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/awesome_button"
+                    android:elevation="2dp"
+                    android:layout_marginLeft="3dp"/>
+
+                <Button
+                    android:id="@+id/indianBanglaBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="INDIAN BANGLA"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/awesome_button"
+                    android:elevation="2dp"
+                    android:layout_marginLeft="3dp"/>
+
+
+                <Button
+                    android:id="@+id/koreanBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="KOREAN"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/awesome_button"
+                    android:elevation="2dp"
+                    android:layout_marginLeft="3dp"/>
+
+                <Button
+                    android:id="@+id/animationBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="ANIMATION"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/awesome_button"
+                    android:elevation="2dp"
+                    android:layout_marginLeft="3dp"/>
+
+
 
     </LinearLayout>
         </HorizontalScrollView>
@@ -63,14 +111,62 @@
         android:gravity="center"
         >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movieView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/allMovieRecycler"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="visible"-->
+<!--        />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hollywood"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bollywood"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hindiDubbing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/indianBangla"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
 
 
-    <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/korean"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+
+
+
+
+        <TextView
         android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

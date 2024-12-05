@@ -9,6 +9,14 @@
     >
     <!--    android:background="#208A8A8A"-->
 
+<!--    <ImageView-->
+<!--        android:id="@+id/lastFramePlaceholder"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:visibility="gone"-->
+<!--        android:background="#000000" />-->
+
 
 
     <ImageView
@@ -28,6 +36,11 @@
         android:id="@+id/exoTitle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="15sp"
@@ -143,7 +156,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_baseline_fullscreen_24"
+            android:src="@drawable/baseline_fullscreen_exit_24"
             />
 
         <ImageView

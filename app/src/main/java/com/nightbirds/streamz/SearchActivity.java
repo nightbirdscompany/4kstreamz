@@ -1,9 +1,12 @@
 package com.nightbirds.streamz;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.rvadapter.AdmobNativeAdAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,40 +39,40 @@ public class SearchActivity extends AppCompatActivity {
     ProgressBar srcProg;
     private TextView errorText, noMovie;
 
+    // Debounce variables
+    private final Handler searchHandler = new Handler();
+    private Runnable searchRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+        }
+
         srcProg = findViewById(R.id.srcProg);
         noMovie = findViewById(R.id.noMovie);
         errorText = findViewById(R.id.errorText);
-        search = findViewById(R.id.search);  // Use the correct ID for the SearchView
-        recyclerView = findViewById(R.id.search_list);  // Use the correct ID for the RecyclerView
+        search = findViewById(R.id.search);
+        recyclerView = findViewById(R.id.search_list);
+
+        ImageView searchIcon = search.findViewById(androidx.appcompat.R.id.search_mag_icon);
+        searchIcon.setColorFilter(Color.BLACK); // Set your desired color here
+
+        TextView searchText = search.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTextColor(Color.BLACK);         // Change query text color
+        searchText.setHintTextColor(Color.BLACK);     // Change hint text color
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         movieList = new ArrayList<>();
         movieAdapter = new MovieAdapter(this, movieList, SearchActivity.this);
-        AdmobNativeAdAdapter admobNativeAdAdapter=AdmobNativeAdAdapter.Builder.Companion.with(
-                        "ca-app-pub-3940256099942544/2247696110",//Create a native ad id from admob console
-                        movieAdapter,//The adapter you would normally set to your recyClerView
-                        "small"//Set it with "small","medium" or "custom"
-                )
-                .adItemIterval(3)//native ad repeating interval in the recyclerview
-                .build();
 
-        recyclerView.setAdapter(admobNativeAdAdapter);
-
+        recyclerView.setAdapter(movieAdapter); // Directly set the MovieAdapter without ads
         requestQueue = Volley.newRequestQueue(this);
 
-        fetchMovies();
-
-
-
-        search.clearFocus(); // for search
-
+        // Set up the search listener
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -79,17 +81,24 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                // Remove previous callbacks
+                searchHandler.removeCallbacks(searchRunnable);
+
+                // Set a new search query
+                searchRunnable = () -> performSearch(newText);
+                // Delaying the search query execution for 300 milliseconds
+                searchHandler.postDelayed(searchRunnable, 300);
                 return true;
             }
-        }); //====================== search end
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
     }
 
-    @Override // for back button
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
@@ -98,81 +107,68 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void filterList(String newText) { //for search
-        List<Movie> filteredList = new ArrayList<>();
-        for (Movie movie : movieList) {
-            if (movie.getTitle().toLowerCase().contains(newText.toLowerCase())) {
-                filteredList.add(movie);
-                noMovie.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        }
-
-        if (filteredList.isEmpty()) {
-            noMovie.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-            errorText.setVisibility(View.GONE);
-        } else {
-            movieAdapter.setFilteredList(filteredList);
+    private void performSearch(String query) {
+        // Check if query is empty
+        if (query.isEmpty()) {
             noMovie.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            return;
         }
-    }
 
+        // Show progress indicator
+        srcProg.setVisibility(View.VISIBLE);
+        noMovie.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
 
-    private void fetchMovies() {
-        String url = "http://103.145.232.246/api/v1/movies.php?sort_by=uploadTime+DESC,+DownHit+DESC&limit=11200";
+        // Fetch movies based on search query
+        String url = "http://103.145.232.246/api/v1/movies.php?search=" + query;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject movieObj = response.getJSONObject(i);
+                response -> {
+                    movieList.clear(); // Clear previous results
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject movieObj = response.getJSONObject(i);
+                            String title = movieObj.getString("MovieTitle");
+                            String year = movieObj.getString("MovieYear");
+                            String story = movieObj.getString("MovieStory");
+                            String posterUrl = "http://103.145.232.246/Admin/main/images/" + movieObj.getString("MovieID") + "/poster/" + movieObj.getString("poster");
+                            String rating = movieObj.getString("MovieRatings");
+                            String movieUrl = movieObj.getString("MovieWatchLink");
+                            String movieCategory = movieObj.getString("MovieCategory");
 
-                                // Parse data from JSON
-                                String movieCategory = movieObj.getString("MovieCategory");
-                                String title = movieObj.getString("MovieTitle");
-                                String year = movieObj.getString("MovieYear");
-                                String story = movieObj.getString("MovieStory");
-                                String posterUrl = "http://103.145.232.246/Admin/main/images/"+movieObj.getString("MovieID")+"/poster/"+movieObj.getString("poster");
-                                String movieUrl = movieObj.getString("MovieWatchLink");
-
-                                // Create a new Movie object and add it to the list
-                                Movie movie = new Movie(title, year, story, posterUrl, movieUrl, movieCategory);
-                                movieList.add(movie);
-                                srcProg.setVisibility(View.GONE);
-                                errorText.setVisibility(View.GONE);
-
-                            }
-
-                            // Notify adapter that data has changed
-                            movieAdapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("MainActivity", "JSON Exception: " + e.getMessage());
+                            // Create a new Movie object and add it to the list
+                            Movie movie = new Movie(title, year, story, posterUrl, rating, movieUrl);
+                            movieList.add(movie);
                         }
+
+                        if (movieList.isEmpty()) {
+                            noMovie.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                            errorText.setVisibility(View.GONE);
+                        } else {
+                            noMovie.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            errorText.setVisibility(View.GONE);
+                            movieAdapter.notifyDataSetChanged();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("SearchActivity", "JSON Exception: " + e.getMessage());
+                    } finally {
+                        srcProg.setVisibility(View.GONE);
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        errorText.setVisibility(View.VISIBLE);
-                        srcProg.setVisibility(View.GONE);
-
-
-                        error.printStackTrace();
-                        Log.e("MainActivity", "Volley Error: " + error.getMessage());
-                    }
-                });
+                error -> {
+                    errorText.setVisibility(View.VISIBLE);
+                    srcProg.setVisibility(View.GONE);
+                    Log.e("SearchActivity", "Volley Error: " + error.getMessage());
+                }
+        );
 
         requestQueue.add(jsonArrayRequest);
     }
-
 }

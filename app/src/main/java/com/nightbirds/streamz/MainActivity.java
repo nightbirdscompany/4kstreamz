@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_WRITE_STORAGE = 1;
     private static final String APK_FILE_NAME = "update.apk";
 
+
     //  MeowBottomNavigation meownav;
 
     private Handler handler = new Handler();
@@ -102,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
+
+        startService(new Intent(this, NotificationService.class));
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+        }
 
         //============== finde view by id  start
 
@@ -209,20 +216,19 @@ public class MainActivity extends AppCompatActivity {
                     openYouTubeChannel("https://www.youtube.com/@nightbirdsofficial");
                     drawlay.closeDrawer(GravityCompat.START);
                     return true;
-                } else if (menuItem.getItemId()==R.id.tele_channel) {
-
-                    openTelegramChannel("https://t.me/c4kstreamz");
-                    drawlay.closeDrawer(GravityCompat.START);
-                    return true;
-
-                } else   if (menuItem.getItemId()==R.id.settings){
+                } //else if (menuItem.getItemId()==R.id.tele_channel) {
+//
+//                    openTelegramChannel("https://t.me/c4kstreamz");
+//                    drawlay.closeDrawer(GravityCompat.START);
+//                    return true;
+//             }
+               else   if (menuItem.getItemId()==R.id.settings){
                     Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
                     drawlay.closeDrawer(GravityCompat.START);
                 }
 
                 else if (menuItem.getItemId()==R.id.help) {
-                    Intent intent = new Intent(MainActivity.this, HelpActivity.class);
-                    startActivity(intent);
+                    sendSupportEmail();
                 }
 
                 else   if (menuItem.getItemId()==R.id.exit){
@@ -302,6 +308,34 @@ public class MainActivity extends AppCompatActivity {
 
         handler.post(checkProxyRunnable);
     }// ============== on create end
+
+
+    //========== for support email
+
+    private void sendSupportEmail() {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("message/rfc822");  // This sets the type to email
+
+        // Set the recipient email address, subject, and optional body text
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"nightbirdscompany@gmail.com"});  // Replace with your support email
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Support Request");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi, I need help with...");  // Optional, you can pre-fill body text if needed
+
+        // Ensure Gmail is chosen as the preferred app
+        emailIntent.setPackage("com.google.android.gm");  // Target Gmail directly
+
+        try {
+            startActivity(emailIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            // If Gmail app is not installed
+            Toast.makeText(this, "Gmail is not installed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+
 
     //============== for intent telegram
 
@@ -448,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
                     int latestVersionCode = jsonObject.getInt("versionCode");
                     String apkUrl = jsonObject.getString("apkUrl");
 
-                    if (latestVersionCode > 4) {
+                    if (latestVersionCode > 10) {
                         runOnUiThread(() -> showUpdateDialog(apkUrl));
                     }
                 } catch (JSONException e) {
@@ -549,6 +583,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    //=======for remote control
+
+
+
+
 
 
 

@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     >
 
-
-
-
         <androidx.media3.ui.PlayerView
             android:id="@+id/exoPlayer"
             android:layout_width="match_parent"
@@ -25,6 +22,7 @@
             app:scrubber_color="@color/light_blue_900"
             app:unplayed_color="#b3b3b3"
             />
+
 
 
         <com.github.ybq.android.spinkit.SpinKitView

@@ -46,10 +46,15 @@ public class BangladeshiTv extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bangladeshitv);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);// for back but
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);// back but end
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));// back but end
 
 
         recyclerView = findViewById(R.id.banglaallrecycler);// for recycler view

@@ -56,7 +56,9 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
 
-
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+        }
 
 
 
@@ -72,6 +74,7 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
     }
 
     @Override // for back button

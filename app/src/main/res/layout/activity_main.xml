@@ -8,6 +8,9 @@
     tools:openDrawer="start"
     android:id="@+id/drawlay"
     android:background="@color/black"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="afterDescendants"
     >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
