@@ -23,7 +23,9 @@
         android:text="4K STREAMZ"
         android:textStyle="bold"
         android:textSize="26sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:fontFamily="@font/font2"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/headeremail"
@@ -31,6 +33,7 @@
         android:layout_height="wrap_content"
         android:text="nightbirdscompany@gmail.com"
         android:textColor="@color/white"
+        android:fontFamily="@font/font2"
         />
 
 

@@ -15,6 +15,7 @@
         android:background="@color/black"
         app:title="Download"
         app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/Font2"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 

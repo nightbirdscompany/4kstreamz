@@ -43,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.search_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.movie_items, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -54,10 +54,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
+
+        // Focus change listener
+        holder.itemView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                holder.itemView.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                holder.itemView.setBackgroundResource(android.R.color.transparent);
+            }
+        });
+
         holder.movieTitle.setText(movie.getTitle());
         holder.movieYear.setText(movie.getYear());
-        holder.movieStory.setText(movie.getStory());
-        holder.movieStory.setSelected(true);
+//        holder.movieGen.setText(movie.getMovieCategory());
+//        holder.movieStory.setText(movie.getStory());
+//        holder.movieStory.setSelected(true);
         holder.movieTitle.setSelected(true);
         holder.Movierating.setText(movie.getMovieRating());
 
@@ -80,7 +91,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView movieTitle, movieYear, movieStory, Movierating;
+        TextView movieTitle, movieYear, movieStory, Movierating, movieGen;
         ImageView poster;
 
         public static String dialogTitle, dialogDes;
@@ -89,9 +100,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             super(itemView);
             movieTitle = itemView.findViewById(R.id.movieTitle);
             movieYear = itemView.findViewById(R.id.movieYear);
-            movieStory = itemView.findViewById(R.id.movieStory);
+//            movieStory = itemView.findViewById(R.id.movieStory);
             poster = itemView.findViewById(R.id.moviePoster);
             Movierating = itemView.findViewById(R.id.Movierating);
+           // movieGen = itemView.findViewById(R.id.movieGen);
         }
     }
 

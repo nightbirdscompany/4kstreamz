@@ -47,6 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         });
 
 
+
+
         if (isProxySet() || isVpnUsed()) {
             // Show a dialog and block access
             showProxyDetectedDialog();
@@ -62,6 +64,9 @@ public class SplashActivity extends AppCompatActivity {
 
                     if (networkInfo!= null && networkInfo.isConnected()) {
 
+
+                        Intent serviceIntent = new Intent(SplashActivity.this, NotificationService.class);
+                        startService(serviceIntent);
 
                         Intent i = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(i);

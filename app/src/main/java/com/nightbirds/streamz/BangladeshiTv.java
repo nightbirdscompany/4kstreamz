@@ -97,6 +97,7 @@ public class BangladeshiTv extends AppCompatActivity {
                 }
 
                 recyclerView.setLayoutManager(new GridLayoutManager(BangladeshiTv.this, 3));
+                recyclerView.setHasFixedSize(true);
                 adapter = new BanglaAllAdapter(BangladeshiTv.this, banglaChannels);
                 recyclerView.setAdapter(adapter);
             }

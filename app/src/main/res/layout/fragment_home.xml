@@ -42,7 +42,8 @@
                         android:text="Cricket"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                 </RelativeLayout>
 
@@ -82,7 +83,8 @@
                         android:text="Football"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                 </RelativeLayout>
 
@@ -121,7 +123,8 @@
                         android:text="Others"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                 </RelativeLayout>
 
@@ -143,12 +146,22 @@
     </ScrollView>
 
 
-
-    <ProgressBar
+    <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/eventProg"
+        style="@style/SpinKitView.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        ads:SpinKit_Color="@color/light_blue_900"
+        />
+
+
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/eventProg"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true" />-->
 
 
 

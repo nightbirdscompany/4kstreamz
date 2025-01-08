@@ -52,11 +52,21 @@ public class EventAdepter extends RecyclerView.Adapter<EventAdepter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Event event = events.get(position);
 
+        // Focus change listener
+        holder.itemView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                holder.itemView.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                holder.itemView.setBackgroundResource(android.R.color.transparent);
+            }
+        });
+
+
         holder.eventTitle.setSelected(true);
         holder.eventTitle.setText(event.getEvent_title());
         Picasso.get().load(event.getEvent_poster()).placeholder(R.drawable.event).into(holder.eventImg);
 
-        holder.eventLay.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             clickCounter++;
             if (clickCounter == 3) {
                 // Show the interstitial ad if it's ready

@@ -3,8 +3,13 @@ package com.nightbirds.streamz;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -47,9 +52,9 @@ public class NoInternet extends AppCompatActivity {
                     showToast("Internet Connected");
                 }else {
 
-                    retry.setText("No Internet Please Try Again");
+                    Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                    startActivity(intent);
 
-                    showToast("Your Internet Disconnect Please Try Again");
 
                 }
 
@@ -62,20 +67,33 @@ public class NoInternet extends AppCompatActivity {
 
     }
 
-    private boolean checkInternet (){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+    public boolean checkInternet() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (networkInfo.isConnected()){
-            return true;
-
-        }else  {
-
-            showToast("Please Check Your Internet Connection");
+        if (connectivityManager == null) {
+            Log.e("NoInternet", "ConnectivityManager is null");
             return false;
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Network network = connectivityManager.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+                return capabilities != null &&
+                        (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+            }
+        } else {
+            // Fallback for older devices
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        }
+        return false;
     }
+
+
 
     private void showToast ( String toasString){
 

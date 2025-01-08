@@ -43,12 +43,20 @@ public class BanglaAllAdapter extends RecyclerView.Adapter<BanglaAllAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BanglaChannel channel = banglaChannels.get(position);
+        // Focus change listener
+        holder.itemView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                holder.itemView.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                holder.itemView.setBackgroundResource(android.R.color.transparent);
+            }
+        });
 
         holder.cName.setSelected(true);
         holder.cName.setText(channel.getChannel_name());
         Picasso.get().load(channel.getChannel_logo()).placeholder(R.drawable.iconai).into(holder.cLogo);
 
-        holder.cLay.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             PlayerActivity.videoUrl = channel.getChannel_url();
             PlayerActivity.playerTitle = channel.getChannel_name();
             Intent intent = new Intent(v.getContext(), PlayerActivity.class);

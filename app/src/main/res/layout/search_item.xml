@@ -12,7 +12,8 @@
         android:orientation="horizontal"
         android:background="@drawable/search_viewbg"
         android:layout_margin="10dp"
-        android:padding="8dp"
+        android:padding="2dp"
+
         >
 
         <RelativeLayout
@@ -23,8 +24,13 @@
             <ImageView
                 android:id="@+id/moviePoster"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/movieposter" />
+                android:layout_height="match_parent"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/imageradius"
+                android:src="@drawable/movieposter"
+                android:layout_marginLeft="1dp"
+                />
 
             <TextView
                 android:id="@+id/Movierating"
@@ -37,8 +43,13 @@
                 android:scrollHorizontally="true"
                 android:text="9.6"
                 android:textColor="@color/white"
+                android:layout_margin="3dp"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/font2"
+                android:background="@drawable/ratebg"
+                android:backgroundTint="#90000000"
+                />
         </RelativeLayout>
 
         <LinearLayout
@@ -47,7 +58,9 @@
             android:orientation="vertical"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/movieTitle"
@@ -62,6 +75,19 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
+                android:fontFamily="@font/font2"
+                />
+
+            <TextView
+                android:id="@+id/movieGen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2024"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:fontFamily="@font/font2"
                 />
 
             <TextView
@@ -73,7 +99,7 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:gravity="center"
-
+                android:fontFamily="@font/font2"
                 />
 
             <TextView
@@ -88,7 +114,8 @@
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:fontFamily="@font/font2"/>
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -15,7 +16,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -41,6 +44,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.BuildConfig;
 
 import android.Manifest;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
@@ -67,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navview;
     View headerview;
     TextView headername, headeremail;
+
+    private static final int REQUEST_CODE_PERMISSION = 100;
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
 
 
@@ -121,10 +129,6 @@ public class MainActivity extends AppCompatActivity {
         headername = headerview.findViewById(R.id.headertext);
         headeremail = headerview.findViewById(R.id.headeremail);
 
-
-
-
-
         new Thread(
                 () -> {
                     // Initialize the Google Mobile Ads SDK on a background thread.
@@ -166,17 +170,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                else if (item.getItemId()==R.id.share){
-
-                    Intent intent = new Intent( Intent.ACTION_SEND);
-                    intent.setType("Text/Plain");
-                    String shareLink = "http://4kstreamz.free.nf/";
-                    String shareSubject = "Enjoy Live Tv And Movie App";
+                else if (item.getItemId()==R.id.noti){
 
 
-                    intent.putExtra(Intent.EXTRA_TEXT,shareLink);
-                    intent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
-                    startActivity(Intent.createChooser( intent,"Enjoy Live Tv And Movie App"));
+                    // Reset badge count
+                    resetNotificationCount();
+                    Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+                    startActivity(intent);
 
 
                 }
@@ -201,7 +201,17 @@ public class MainActivity extends AppCompatActivity {
                     drawlay.closeDrawer(GravityCompat.START);
                 }
 
-                else   if (menuItem.getItemId()==R.id.nav_noti){
+                else   if (menuItem.getItemId()==R.id.share){
+
+                    Intent intent = new Intent( Intent.ACTION_SEND);
+                    intent.setType("Text/Plain");
+                    String shareLink = "http://4kstreamz.free.nf/";
+                    String shareSubject = "Enjoy Live Tv And Movie App";
+
+
+                    intent.putExtra(Intent.EXTRA_TEXT,shareLink);
+                    intent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
+                    startActivity(Intent.createChooser( intent,"Enjoy Live Tv And Movie App"));
 
                     drawlay.closeDrawer(GravityCompat.START);
                 }
@@ -226,8 +236,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "yeh working", Toast.LENGTH_LONG).show();
                     drawlay.closeDrawer(GravityCompat.START);
                 }
+               else if (menuItem.getItemId()==R.id.developerInfo) {
 
-                else if (menuItem.getItemId()==R.id.help) {
+                   Intent intent = new Intent(MainActivity.this, AboutDeveloper.class);
+                   startActivity(intent);
+
+                }
+               else if (menuItem.getItemId()==R.id.help) {
                     sendSupportEmail();
                 }
 
@@ -291,8 +306,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ColorStateList colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_color);
+        // Add focus change listener for bottom navigation items
+        for (int i = 0; i < bottomnavigationview.getMenu().size(); i++) {
+            MenuItem menuItem = bottomnavigationview.getMenu().getItem(i);
+            View itemView = bottomnavigationview.findViewById(menuItem.getItemId());
 
+            if (itemView != null) {
+                itemView.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (hasFocus) {
+                        v.setBackgroundResource(R.drawable.tv_control); // Highlight background
+                    } else {
+                        v.setBackgroundResource(android.R.color.transparent); // Reset background
+                    }
+                });
+            }
+        }
+
+        ColorStateList colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_color);
         bottomnavigationview.setItemIconTintList(colorStateList);
 
         ColorStateList rippleColor = ContextCompat.getColorStateList(this, R.color.bottom_nav_ripple_color);
@@ -307,7 +337,86 @@ public class MainActivity extends AppCompatActivity {
        // ========== for proxy detected
 
         handler.post(checkProxyRunnable);
+
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request permission if it's not granted
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
+        }
+
+        // Check and request permission on Android 14 and above
+        requestPostNotificationsPermission();
+
+        loadNotificationCount();
+
     }// ============== on create end
+
+    //============== for noti
+    private void loadNotificationCount() {
+        SharedPreferences preferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        int notificationCount = preferences.getInt("NotificationCount", 0);
+        updateNotificationBadge(notificationCount);
+    }
+
+    private void resetNotificationCount() {
+        SharedPreferences preferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("NotificationCount", 0);  // Reset the notification count
+        editor.apply();
+
+        updateNotificationBadge(0);  // Update badge with 0 notifications
+    }
+
+    private void updateNotificationBadge(int count) {
+        MenuItem menuItem = toolbar.getMenu().findItem(R.id.noti);
+        if (menuItem != null) {
+            View actionView = menuItem.getActionView();
+            if (actionView != null) {
+                TextView badge = actionView.findViewById(R.id.badge);
+                if (badge != null) {
+                    if (count > 0) {
+                        badge.setText(String.valueOf(count));
+                        badge.setVisibility(View.VISIBLE);
+                    } else {
+                        badge.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    }
+
+    private void addNewNotification(String id, String title, String message) {
+        SharedPreferences preferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Store the new notification
+        String jsonString = preferences.getString("StoredNotifications", "[]");
+        try {
+            JSONArray notificationsArray = new JSONArray(jsonString);
+            JSONObject newNotification = new JSONObject();
+            newNotification.put("id", id);
+            newNotification.put("title", title);
+            newNotification.put("message", message);
+            notificationsArray.put(newNotification);
+
+            editor.putString("StoredNotifications", notificationsArray.toString());
+
+            // Increment notification count and update badge
+            int currentCount = preferences.getInt("NotificationCount", 0);
+            editor.putInt("NotificationCount", currentCount + 1);
+            editor.apply();
+
+            // Update badge to reflect new notification count
+            updateNotificationBadge(currentCount + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 
 
     //========== for support email
@@ -331,11 +440,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Gmail is not installed", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
-
 
     //============== for intent telegram
 
@@ -424,10 +528,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //========= proxy detected end
 
-    
     //================================ fragment start
-
-
 
     //=============== exit alert
 
@@ -451,7 +552,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        finishAndRemoveTask();
+//                        finishAndRemoveTask();
+                        moveTaskToBack(true);
                     }
                 })
 
@@ -482,7 +584,7 @@ public class MainActivity extends AppCompatActivity {
                     int latestVersionCode = jsonObject.getInt("versionCode");
                     String apkUrl = jsonObject.getString("apkUrl");
 
-                    if (latestVersionCode > 10) {
+                    if (latestVersionCode > 11) {
                         runOnUiThread(() -> showUpdateDialog(apkUrl));
                     }
                 } catch (JSONException e) {
@@ -573,24 +675,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSIONS) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                checkForUpdate();
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+    public void requestPostNotificationsPermission() {
+        // Check if the app is running on Android 14 (API level 30) or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check if the permission is already granted
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Request permission
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
             }
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-    //=======for remote control
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with accessing external storage or any other logic
+                // You can put your logic to handle external storage access here
+            } else {
+                // Permission denied, handle appropriately (e.g., show a message to the user)
+//                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                // Optionally, you can provide more info about why the permission is needed
+            }
+        } else if (requestCode == REQUEST_PERMISSIONS) {
+            // Handle your other permission requests (if applicable)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkForUpdate();
+            } else {
+                //Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        } else if  (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with notifications
 
 
+            } else {
+                // Permission denied, handle accordingly
+            }
+        }
 
+        }
+    }
 
-
-
-
-}

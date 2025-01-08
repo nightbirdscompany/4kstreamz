@@ -41,7 +41,8 @@
                         android:text="Bangladeshi"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                     <TextView
                         android:id="@+id/bangladeshall"
@@ -51,9 +52,12 @@
                         android:layout_marginRight="10dp"
                         android:text="SEE ALL"
                         android:textColor="@color/light_blue_600"
+                        android:background="@android:color/transparent"
+                        android:focusable="true"
                         android:textSize="18dp"
                         android:textStyle="bold"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/font2"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -91,7 +95,8 @@
                         android:text="Indian"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                     <TextView
                         android:id="@+id/indiaall"
@@ -100,10 +105,13 @@
                         android:layout_marginTop="17dp"
                         android:layout_marginRight="10dp"
                         android:text="SEE ALL"
+                        android:background="@android:color/transparent"
+                        android:focusable="true"
                         android:textColor="@color/light_blue_600"
                         android:textSize="18dp"
                         android:textStyle="bold"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/font2"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -141,7 +149,8 @@
                         android:text="Sports"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font2"/>
 
                     <TextView
                         android:id="@+id/sportsall"
@@ -150,10 +159,13 @@
                         android:layout_marginTop="17dp"
                         android:layout_marginRight="10dp"
                         android:text="SEE ALL"
+                        android:background="@android:color/transparent"
+                        android:focusable="true"
                         android:textColor="@color/light_blue_600"
                         android:textSize="18dp"
                         android:textStyle="bold"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="@font/font2"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -175,10 +187,19 @@
 
 
     <!-- Progress Bar -->
-    <ProgressBar
+
+    <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/tvProg"
+        style="@style/SpinKitView.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        ads:SpinKit_Color="@color/light_blue_900"
+        />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/tvProg"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true" />-->
 
 </RelativeLayout>

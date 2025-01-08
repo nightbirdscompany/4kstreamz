@@ -22,4 +22,11 @@
     <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="windowNoTitle">false</item>
     </style>
+
+    <style name="Font2" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="fontFamily">@font/font2</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_gravity">left</item>
+
+    </style>
 </resources>

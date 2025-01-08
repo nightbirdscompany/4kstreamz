@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutDeveloper"
+    android:orientation="vertical"
+    android:background="@color/black"
+    >
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:title="Developer Info"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/Font2"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:gravity="center"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/moviePoster"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/circle_background"
+                    android:clipToOutline="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/developer" />
+            </RelativeLayout>
+
+            <!-- Developer Name -->
+            <TextView
+                android:id="@+id/developerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MD. HASAN MIA"
+                android:textSize="18sp"
+                android:fontFamily="@font/font2"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/developerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="App Developer"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/font2"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/contactInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Info"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="5dp"
+                android:paddingRight="50dp"
+                android:paddingLeft="50dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:fontFamily="@font/font2"
+                android:layout_gravity="center"
+                android:background="@drawable/search_viewbg"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/search_viewbg"
+                android:weightSum="6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="5dp"
+                >
+
+                <ImageView
+                    android:id="@+id/call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/call"
+                    />
+
+                <ImageView
+                    android:id="@+id/facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/facebook_ic"
+                    />
+
+                <ImageView
+                    android:id="@+id/instagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/instagram"
+                    />
+
+                <ImageView
+                    android:id="@+id/whatsApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/whatsapp"
+                    />
+
+                <ImageView
+                    android:id="@+id/telegram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/telegram_ic"
+                    />
+
+                <ImageView
+                    android:id="@+id/mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/mail"
+                    />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hi, I'm Hasan, an enthusiastic app developer with a passion for creating innovative and user-friendly applications. I specialize in building mobile apps that deliver exceptional experiences, whether it's streaming, remote control integration, or anything in between. \n\nWith a strong foundation in Java and Android development, I've worked on exciting projects like the 4K Streamz app, which streams TV channels and movies seamlessly on Android TV. My focus is on functionality, performance, and delivering solutions that truly meet user needs.\n\n I'm always exploring new technologies and tools to enhance my skills and bring fresh ideas to life. Let's connect and create something amazing together!"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font2"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+</LinearLayout>

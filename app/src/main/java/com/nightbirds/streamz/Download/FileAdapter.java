@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nightbirds.streamz.PlayerActivity;
 import com.nightbirds.streamz.R;
 import com.tonyodev.fetch2.Download;
 import com.tonyodev.fetch2.Status;
@@ -86,17 +87,24 @@ public final class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHold
                 holder.actionButton.setOnClickListener(view -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         Timber.d("Downloaded Path: %s", downloadData.download.getFile());
-                        Toast.makeText(context, "Downloaded Path:" + downloadData.download.getFile(), Toast.LENGTH_LONG).show();
-                        return;
+                        Toast.makeText(context, "Downloaded Path:" + downloadData.download.getFile(), Toast.LENGTH_SHORT).show();
                     }
-                    final File file = new File(downloadData.download.getFile());
-                    final Uri uri1 = Uri.fromFile(file);
-                    final Intent share = new Intent(Intent.ACTION_VIEW);
-                    share.setDataAndType(uri1, Utils.getMimeType(context, uri1));
-                    context.startActivity(share);
+
+//                    // Access the downloaded file
+//                    final File file = new File(downloadData.download.getFile());
+//                    if (file.exists()) {
+//                        // Play the video in PlayerActivity
+//                        final Intent intent = new Intent(context, PlayerActivity.class);
+//                        intent.putExtra("videoUrl", file.getAbsolutePath()); // Pass file path
+//                        intent.putExtra("playerTitle", file.getName()); // Pass video name
+//                        context.startActivity(intent);
+//                    } else {
+//                        Toast.makeText(context, "File not found", Toast.LENGTH_SHORT).show();
+//                    }
                 });
                 break;
             }
+
             case FAILED: {
                 holder.actionButton.setText(R.string.retry);
                 holder.actionButton.setOnClickListener(view -> {

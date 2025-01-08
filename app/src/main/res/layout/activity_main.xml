@@ -29,8 +29,18 @@
                 app:menu="@menu/toolbar_items"
                 app:navigationIcon="@drawable/menuic"
                 app:navigationIconTint="@color/white"
-                app:title="4K STREAMZ"
-                app:titleTextColor="@color/white" />
+                >
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="4K STREAMZ"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/font2" />
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout

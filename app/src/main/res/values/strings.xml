@@ -25,9 +25,9 @@
 
     <string name="select_quality">Select Quality</string>
     <string name="track_selection_title">Select tracks</string>
-    <string name="exo_track_selection_title_audio">audio</string>
-    <string name="exo_track_selection_title_text">txt</string>
-    <string name="exo_track_selection_title_video">vid</string>
+    <string name="exo_track_selection_title_audio">Audio</string>
+    <string name="exo_track_selection_title_text">Subtitle</string>
+    <string name="exo_track_selection_title_video">Quality</string>
 
 
     <string name="pause">PAUSE</string>
@@ -71,9 +71,7 @@
     <string name="download_speed_mb">%1$s MB/s</string>
 
 
-
     <string name="admob_banner_ad_unit_id">ca-app-pub-7944048926495091/9074338060</string>
-
 
 
 </resources>

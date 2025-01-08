@@ -1,6 +1,7 @@
 package com.nightbirds.streamz;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,6 +57,8 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
 
+
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
         }
@@ -80,7 +83,12 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
     @Override // for back button
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+//            Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+//            startService(serviceIntent);
+//            Intent ii = new Intent(this, MainActivity.class);
+//            startActivity(ii);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -124,6 +132,8 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+//        startService(serviceIntent);
         fetch.close();
     }
 
@@ -224,6 +234,15 @@ public class DownloadActivity extends AppCompatActivity implements ActionListene
     @Override
     public void onRetryDownload(int id) {
         fetch.retry(id);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+        startService(serviceIntent);
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 
 }

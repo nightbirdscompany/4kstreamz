@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private SearchView search;
     private RecyclerView recyclerView;
-    private MovieAdapter movieAdapter;
+    private SearchAdapter movieAdapter;
     private List<Movie> movieList;
     private RequestQueue requestQueue;
     ProgressBar srcProg;
@@ -58,6 +60,9 @@ public class SearchActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         recyclerView = findViewById(R.id.search_list);
 
+        Sprite fadingCircle = new FadingCircle();
+        srcProg.setIndeterminateDrawable(fadingCircle);
+
         ImageView searchIcon = search.findViewById(androidx.appcompat.R.id.search_mag_icon);
         searchIcon.setColorFilter(Color.BLACK); // Set your desired color here
 
@@ -67,7 +72,7 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         movieList = new ArrayList<>();
-        movieAdapter = new MovieAdapter(this, movieList, SearchActivity.this);
+        movieAdapter = new SearchAdapter(this, movieList, SearchActivity.this);
 
         recyclerView.setAdapter(movieAdapter); // Directly set the MovieAdapter without ads
         requestQueue = Volley.newRequestQueue(this);
@@ -141,7 +146,7 @@ public class SearchActivity extends AppCompatActivity {
                             String movieCategory = movieObj.getString("MovieCategory");
 
                             // Create a new Movie object and add it to the list
-                            Movie movie = new Movie(title, year, story, posterUrl, rating, movieUrl);
+                            Movie movie = new Movie(title, year, story, posterUrl, rating, movieUrl, movieCategory);
                             movieList.add(movie);
                         }
 

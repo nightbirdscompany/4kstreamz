@@ -9,7 +9,7 @@ public class Movie {
     private String movieUrl;
     private String movieCategory;
 
-    public Movie(String title, String year, String story, String posterUrl, String movieRating, String movieUrl) {
+    public Movie(String title, String year, String story, String posterUrl, String movieRating, String movieUrl, String movieCategory) {
         this.title = title;
         this.year = year;
         this.story = story;

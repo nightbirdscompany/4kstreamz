@@ -3,10 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MovieFragment"
     android:background="@color/black"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipeRefreshLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +21,7 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:scrollbars="none"
             >
@@ -44,7 +49,8 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/awesome_button"
             android:elevation="2dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:fontFamily="@font/font2"/>
 
         <Button
             android:id="@+id/bollywoodBut"
@@ -54,7 +60,8 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/awesome_button"
             android:elevation="2dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:fontFamily="@font/font2"/>
                 <Button
                     android:id="@+id/hindidubbingBut"
                     android:layout_width="wrap_content"
@@ -63,7 +70,18 @@
                     android:textColor="#FFFFFF"
                     android:background="@drawable/awesome_button"
                     android:elevation="2dp"
-                    android:layout_marginLeft="3dp"/>
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/font2"/>
+                <Button
+                    android:id="@+id/tamilBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="TAMIL"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/awesome_button"
+                    android:elevation="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/font2"/>
 
                 <Button
                     android:id="@+id/indianBanglaBut"
@@ -73,7 +91,8 @@
                     android:textColor="#FFFFFF"
                     android:background="@drawable/awesome_button"
                     android:elevation="2dp"
-                    android:layout_marginLeft="3dp"/>
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/font2"/>
 
 
                 <Button
@@ -84,7 +103,8 @@
                     android:textColor="#FFFFFF"
                     android:background="@drawable/awesome_button"
                     android:elevation="2dp"
-                    android:layout_marginLeft="3dp"/>
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/font2"/>
 
                 <Button
                     android:id="@+id/animationBut"
@@ -94,13 +114,27 @@
                     android:textColor="#FFFFFF"
                     android:background="@drawable/awesome_button"
                     android:elevation="2dp"
-                    android:layout_marginLeft="3dp"/>
+                    android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/font2"/>
 
 
 
     </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Something Wrong Please Try Again"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
 
 
     <RelativeLayout
@@ -111,18 +145,21 @@
         android:gravity="center"
         >
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
+        <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/allMovieRecycler"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->
 <!--        android:visibility="visible"-->
 <!--        />-->
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hollywood"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
+            android:layout_centerInParent="true"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -130,6 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_centerInParent="true"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -137,6 +175,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tamil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -144,6 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_centerInParent="true"
             />
 
 
@@ -152,6 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_centerInParent="true"
             />
 
 
@@ -160,32 +209,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            android:layout_centerInParent="true"
             />
 
+<!--        <com.github.ybq.android.spinkit.SpinKitView-->
+<!--            android:id="@+id/spin_kit"-->
+<!--            style="@style/SpinKitView.FadingCircle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            app:SpinKit_Color="@color/light_blue_600" />-->
 
 
 
 
-        <TextView
-        android:id="@+id/errorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Something Wrong Please Try Again"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+
+<!--        <TextView-->
+<!--        android:id="@+id/errorText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Something Wrong Please Try Again"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
+
+<!--        <com.github.ybq.android.spinkit.SpinKitView-->
+<!--            android:id="@+id/spin_kit"-->
+<!--            style="@style/SpinKitView.FadingCircle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            app:SpinKit_Color="@color/light_blue_900"-->
+<!--            />-->
 
     <ProgressBar
         android:id="@+id/movieProg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+
         />
 
     </RelativeLayout>
 
+
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
 
 </LinearLayout>

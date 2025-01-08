@@ -2,8 +2,14 @@ package com.nightbirds.streamz;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import com.android.volley.Request;
@@ -18,20 +24,43 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks, LifecycleObserver {
+
     private AppOpenAd appOpenAd = null;
     private Activity currentActivity;
     private int appOpenCount = 0;  // Counter for app opens
     private static int AD_DISPLAY_INTERVAL = 3;  // Default interval if JSON load fails
+    private boolean isAdIntervalFetched = false; // Flag to indicate if the interval is fetched
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Start background service
+        Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(this, serviceIntent);
+        } else {
+            startService(serviceIntent);
+        }
+
+
+        // Initialize AdMob
         MobileAds.initialize(this, initializationStatus -> {});
+
+        // Register lifecycle observer
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
+        // Register activity lifecycle callbacks
         registerActivityLifecycleCallbacks(this);
 
-        fetchAdDisplayInterval();  // Fetch the interval from JSON server
-        loadAppOpenAd();           // Load the first ad
+        // Fetch the ad display interval from the server
+        fetchAdDisplayInterval();
+
+        // Load the first app open ad
+        loadAppOpenAd();
+
+        // Request notification permission if required for Android 14+
+        requestPostNotificationsPermission();
     }
 
     private void fetchAdDisplayInterval() {
@@ -41,6 +70,7 @@ public class MyApplication extends Application implements Application.ActivityLi
                 response -> {
                     try {
                         AD_DISPLAY_INTERVAL = response.getInt("AD_DISPLAY_INTERVAL");
+                        isAdIntervalFetched = true;  // Mark as fetched
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -48,6 +78,7 @@ public class MyApplication extends Application implements Application.ActivityLi
                 error -> {
                     // Handle any errors here, e.g., log the error or set a fallback interval
                     error.printStackTrace();
+                    isAdIntervalFetched = true;  // Mark as fetched to avoid further fetching
                 }
         );
 
@@ -77,12 +108,17 @@ public class MyApplication extends Application implements Application.ActivityLi
     }
 
     public void showAdIfAvailable() {
+        // Make sure the ad interval is fetched before showing the ad
+        if (!isAdIntervalFetched) {
+            return;
+        }
+
         if (appOpenAd != null && currentActivity != null) {
             appOpenAd.show(currentActivity);
             appOpenAd = null;  // Ensure the ad is only shown once
-            loadAppOpenAd();   // Load a new ad for next time
+            loadAppOpenAd();   // Load a new ad for the next time
         } else {
-            loadAppOpenAd(); // If ad isn't available, load another one
+            loadAppOpenAd(); // If the ad isn't available, load another one
         }
     }
 
@@ -95,18 +131,31 @@ public class MyApplication extends Application implements Application.ActivityLi
     public void onActivityStarted(Activity activity) {
         currentActivity = activity;
 
-        // Increment app open count and check if it's time to show the ad
-        appOpenCount++;
+        // Increment app open count only when the app is launched from a cold start
+        if (activity.isTaskRoot()) {
+            appOpenCount++;
+        }
+
+        // Check if it's time to show the ad
         if (appOpenCount >= AD_DISPLAY_INTERVAL) {
             showAdIfAvailable();  // Show the ad
             appOpenCount = 0;     // Reset the counter after showing the ad
         }
     }
 
-    // Other lifecycle methods for ActivityLifecycleCallbacks
     @Override public void onActivityResumed(Activity activity) { currentActivity = activity; }
     @Override public void onActivityPaused(Activity activity) { }
     @Override public void onActivityStopped(Activity activity) { }
     @Override public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
     @Override public void onActivityDestroyed(Activity activity) { }
+
+    private void requestPostNotificationsPermission() {
+        // Check if the app is running on Android 14 (API level 30) or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Request permission in MainActivity
+            if (currentActivity instanceof MainActivity) {
+                ((MainActivity) currentActivity).requestPostNotificationsPermission();
+            }
+        }
+    }
 }

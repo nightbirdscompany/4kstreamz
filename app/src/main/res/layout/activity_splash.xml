@@ -6,27 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:gravity="center"
     android:backgroundTint="@color/black"
     android:background="@color/black"
+    android:orientation="vertical"
     >
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="220dp"
-        android:layout_height="wrap_content"
-
-        android:src="@drawable/iconai" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="222dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageView2"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="101dp"
-        android:backgroundTint="@color/white"
+        android:layout_height="220dp"
+        android:src="@drawable/iconai"
+        android:layout_centerInParent="true"
         />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progressBar"
+        style="@style/SpinKitView.FadingCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView2"
+        android:layout_marginTop="50dp"
+        android:layout_centerInParent="true"
+        app:SpinKit_Color="@color/light_blue_900" />
+
+    <!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        android:layout_width="222dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignEnd="@+id/imageView2"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginEnd="-2dp"-->
+<!--        android:layout_marginBottom="101dp"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        />-->
 
 </RelativeLayout>

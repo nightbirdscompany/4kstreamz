@@ -16,6 +16,7 @@
         android:background="@color/black"
         app:titleTextColor="@color/white"
         app:title="Bangladeshi Channel"
+        app:titleTextAppearance="@style/Font2"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
 

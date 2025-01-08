@@ -44,6 +44,33 @@ public class TvFragment extends Fragment {
         setClickListeners();
         initializeChannelsLists();
         loadChannelsData();
+
+
+        bangladeshall.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                bangladeshall.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                bangladeshall.setBackgroundResource(android.R.color.transparent);
+            }
+        });
+
+        indiaall.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                indiaall.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                indiaall.setBackgroundResource(android.R.color.transparent);
+            }
+        });
+
+        sportsall.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                sportsall.setBackgroundResource(R.drawable.tv_control);
+            } else {
+                sportsall.setBackgroundResource(android.R.color.transparent);
+            }
+        });
+
+
         return tvView;
     }
 
@@ -56,6 +83,8 @@ public class TvFragment extends Fragment {
         sportsall = tvView.findViewById(R.id.sportsall);
         tvProg = tvView.findViewById(R.id.tvProg);
     }
+
+
 
 //    private void loadAds(View tvView) {
 //        AdView adView = tvView.findViewById(R.id.adView2);

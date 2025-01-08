@@ -43,7 +43,7 @@ public final class Data {
         final Uri uri = Uri.parse(url);
         final String fileName = uri.getLastPathSegment();
         final String dir = getSaveDir(context);
-        return (dir + "/Movie/" + fileName);
+        return (dir + "/" + fileName);
     }
 
     @NonNull
@@ -68,7 +68,7 @@ public final class Data {
     @NonNull
     public static String getSaveDir(Context context) {
         File downloadDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File fetchDirectory = new File(downloadDirectory, "4K STREAMZ");
+        File fetchDirectory = new File(downloadDirectory, "Streamz Movie");
 
         // Create the directory if it doesn't exist
         if (!fetchDirectory.exists()) {

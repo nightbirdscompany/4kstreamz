@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@color/black"
         app:title="Search Movie"
+        app:titleTextAppearance="@style/Font2"
         app:titleTextColor="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
@@ -70,13 +71,23 @@
         android:visibility="gone"
         />
 
-    <ProgressBar
+    <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/srcProg"
+        style="@style/SpinKitView.FadingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        app:SpinKit_Color="@color/light_blue_900"
         android:visibility="gone"
         />
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/srcProg"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
 
 
 </RelativeLayout>

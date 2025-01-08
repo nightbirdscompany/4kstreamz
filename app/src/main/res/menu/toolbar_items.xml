@@ -21,9 +21,9 @@
 
 
     <item
-        android:id="@+id/share"
-        android:title="Share"
-        android:icon="@drawable/share_ic"
+        android:id="@+id/noti"
+        android:title="Notification"
+        android:icon="@drawable/noti_ic"
         app:showAsAction="ifRoom"
         android:iconTint="@color/white"
         />

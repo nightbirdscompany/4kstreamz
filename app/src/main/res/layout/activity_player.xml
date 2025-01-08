@@ -10,18 +10,18 @@
             android:id="@+id/exoPlayer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:background="@color/black"
             app:buffered_color="@color/light_blue_600"
             app:controller_layout_id="@layout/custom_controls"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:resize_mode="fill"
-            android:animateLayoutChanges="true"
             app:played_color="@color/light_blue_900"
+            app:resize_mode="fill"
             app:scrubber_color="@color/light_blue_900"
-            app:unplayed_color="#b3b3b3"
-            />
+            app:unplayed_color="#b3b3b3" />
 
 
 

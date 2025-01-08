@@ -19,12 +19,6 @@
             />
 
     <item
-        android:id="@+id/nav_noti"
-        android:title="Notification"
-        android:icon="@drawable/noti_ic"
-        />
-
-    <item
         android:id="@+id/fb_page"
         android:title="Facebook Page"
         android:icon="@drawable/facebook_ic"
@@ -47,6 +41,8 @@
 
     </group>
 
+
+
     <group
         android:id="@+id/group2">
 
@@ -55,6 +51,25 @@
             android:title="Settings"
             android:icon="@drawable/settings_ic"
             />
+
+
+        <item
+            android:id="@+id/share"
+            android:title="Share"
+            android:icon="@drawable/share_ic"
+            />
+
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        >
+        <item
+            android:id="@+id/developerInfo"
+            android:title="Developer Info"
+            android:icon="@drawable/info"
+            />
+
 
         <item
             android:id="@+id/help"
